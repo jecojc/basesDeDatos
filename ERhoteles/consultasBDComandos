@@ -5,7 +5,7 @@ use hotel;
 
 CREATE TABLE categoria (estrellaCategoria INT AUTO_INCREMENT, ivaCategoria FLOAT, descripcionCategoria VARCHAR(200), PRIMARY KEY(estrellaCategoria) ) engine=innodb;
 
-CREATE TABLE hotel (idHotel INT AUTO_INCREMENT, fkeIdCategoria INT, nombreHotel VARCHAR(200), fechaConstruccionHotel DATE, PRIMARY KEY(idHotel), FOREIGN KEY (fkeIdCategoria) REFERENCES categoria1(estrellaCategoria) ) engine=innodb;
+CREATE TABLE hotel (idHotel INT AUTO_INCREMENT, fkeIdCategoria INT, nombreHotel VARCHAR(200), fechaConstruccionHotel DATE, PRIMARY KEY(idHotel), FOREIGN KEY (fkeIdCategoria) REFERENCES categoria(estrellaCategoria) ) engine=innodb;
 
 CREATE TABLE detalleDireccionHotel (idDDHotel INT AUTO_INCREMENT, fkeIdHotel INT, paisDDHotel VARCHAR(100), estadoDDHotel VARCHAR(100), municipioDDHotel VARCHAR(150), ciudadDDHotel VARCHAR(150), sectorDDHotel VARCHAR(150), numeroDDHotel VARCHAR(20), PRIMARY KEY(idDDHotel), FOREIGN KEY (fkeIdHotel) REFERENCES hotel(idHotel) ) engine=innodb;
 
@@ -27,14 +27,15 @@ CREATE TABLE detalleTelefonoAgencia (idDTAgencia INT AUTO_INCREMENT, fkeIdAgenci
 
 CREATE TABLE reserva (idReserva INT AUTO_INCREMENT, fkeIdHabitacion INT, numeroReserva INT, fkeIdCliente INT, precioReserva FLOAT, fechaInicioReserva DATE, fechaFinReserva DATE, PRIMARY KEY(idReserva), FOREIGN KEY (fkeIdHabitacion) REFERENCES habitacion(idHabitacion), FOREIGN KEY (fkeIdCliente) REFERENCES cliente(identificacion) ) engine=innodb;
 
+INSERT INTO categoria(estrellaCategoria,ivaCategoria,descripcionCategoria) VALUES (1,0.10,'Hotel mas basico de las categorias');
+
+INSERT INTO categoria(estrellaCategoria,ivaCategoria,descripcionCategoria) VALUES (2,0.12,'Hotel standar con acondicionamiento
+de espacios');
 
 INSERT INTO hotel (fkeIdCategoria,nombreHotel,fechaConstruccionHotel) VAlUES (1,'Pozo Azul','2020-05-05');
 
 
-INSERT INTO categoria(estrellaCategoria,ivaCategoria,descripcionCategoria) VALUES (1,0.10,'Hotel mas basico de las categorias');
 
-INSERT INTO categoria1(estrellaCategoria,ivaCategoria,descripcionCategoria) VALUES (2,0.12,'Hotel standar con acondicionamiento
-de espacios');
 
 
 INSERT INTO detalleDireccionHotel (fkeIdHotel,paisDDHotel,estadoDDHOTEL,municipioDDHotel,ciudadDDHotel,sectorDDHotel,numeroDDHotel) VALUES (2,'Colombia','Norte De Santander','Cucuta','Capital','Centro','Lote-153');
