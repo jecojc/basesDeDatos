@@ -38,10 +38,10 @@ INSERT INTO hotel (fkeIdCategoria,nombreHotel,fechaConstruccionHotel) VAlUES (1,
 
 
 
-INSERT INTO detalleDireccionHotel (fkeIdHotel,paisDDHotel,estadoDDHOTEL,municipioDDHotel,ciudadDDHotel,sectorDDHotel,numeroDDHotel) VALUES (2,'Colombia','Norte De Santander','Cucuta','Capital','Centro','Lote-153');
+INSERT INTO detalleDireccionHotel (fkeIdHotel,paisDDHotel,estadoDDHOTEL,municipioDDHotel,ciudadDDHotel,sectorDDHotel,numeroDDHotel) VALUES (1,'Colombia','Norte De Santander','Cucuta','Capital','Centro','Lote-153');
 
 
-INSERT INTO detalleDireccionHotel (fkeIdHotel,paisDDHotel,estadoDDHOTEL,municipioDDHotel,ciudadDDHotel,sectorDDHotel,numeroDDHotel) VALUES (2,'Colombia','Norte De Santander','Cucuta','Capital','Centro','Lote-153');
+INSERT INTO detalleDireccionHotel (fkeIdHotel,paisDDHotel,estadoDDHOTEL,municipioDDHotel,ciudadDDHotel,sectorDDHotel,numeroDDHotel) VALUES (1,'Colombia','Norte De Santander','Cucuta','Capital','Centro','Lote-153');
 
 INSERT INTO detalleTelefonoHotel(fkeIdHotel,telefonoDTHotel) VALUES (1,'330-45879');
 
