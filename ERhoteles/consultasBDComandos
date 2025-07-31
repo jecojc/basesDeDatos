@@ -34,12 +34,7 @@ de espacios');
 
 INSERT INTO hotel (fkeIdCategoria,nombreHotel,fechaConstruccionHotel) VAlUES (1,'Pozo Azul','2020-05-05');
 
-
-
-
-
 INSERT INTO detalleDireccionHotel (fkeIdHotel,paisDDHotel,estadoDDHOTEL,municipioDDHotel,ciudadDDHotel,sectorDDHotel,numeroDDHotel) VALUES (1,'Colombia','Norte De Santander','Cucuta','Capital','Centro','Lote-153');
-
 
 INSERT INTO detalleDireccionHotel (fkeIdHotel,paisDDHotel,estadoDDHOTEL,municipioDDHotel,ciudadDDHotel,sectorDDHotel,numeroDDHotel) VALUES (1,'Colombia','Norte De Santander','Cucuta','Capital','Centro','Lote-153');
 
@@ -50,11 +45,52 @@ contrl+l equivalente a clear
 mysql> SELECT * FROM hotel,categoria1,detalleDireccionHotel,detalleTelefonoHotel WHERE categoria1.estrellaCategoria=hotel.fkeIdCategoria AND detalleDireccionHotel.fkeIdHotel=hotel.idHotel AND detalleTelefonoHotel.fkeIdHotel=hotel.i
 dHotel;
 
-
- SELECT nombreHotel,descripcionCategoria,paisDDHotel,telefonoDTHotel FROM hotel,categoria1,detalleDireccionHotel,detalleTelefonoHotel WHERE categoria1.estrellaCategoria=hotel.fkeIdCategoria AND detalleDireccionHotel.fkeIdHotel=hotel.idHotel AND detalleTelefonoHotel.fkeIdHotel=hotel.idHotel;
-
+SELECT nombreHotel,descripcionCategoria,paisDDHotel,telefonoDTHotel FROM hotel,categoria1,detalleDireccionHotel,detalleTelefonoHotel WHERE categoria1.estrellaCategoria=hotel.fkeIdCategoria AND detalleDireccionHotel.fkeIdHotel=hotel.idHotel AND detalleTelefonoHotel.fkeIdHotel=hotel.idHotel;
 
 
+/ ------------------  clase transacciones  ---------------------/
+
+INSERT INTO cliente (identificacion, nombreCliente, segundosNombresClientes, apellidoCliente, segundosApellidosCliente) VALUES (12345678, 'Juan', 'Antonio', 'Caceres', 'Perez');
+
+INSERT INTO habitacion (idHabitacion, fkeIdHotel, codigoHabitacion, tipoHabitacion) VALUES (NULL, 1, 1, 1);
 
 
+START TRANSACTION;
+
+SELECT * FROM reserva WHERE fkeIdHabitacion = 1  AND fechaFinReserva >= '2025-08-05' AND fechaFinReserva <= '2025-08-10' ;
+
+INSERT INTO reserva (idReserva, fkeIdHabitacion, numeroReserva, fkeIdCliente, precioReserva, fechaInicioReserva, fechaFinReserva) VALUES (NULL, 1, 1001, 12345678, 150.00, '2025-08-05', '2025-08-10'); 
+
+COMMIT;
+
+
+START TRANSACTION;
+
+SELECT * FROM reserva WHERE fkeIdHabitacion = 1  AND fechaFinReserva >= '2025-08-11' AND fechaFinReserva <= '2025-08-15' ;
+
+INSERT INTO reserva (idReserva, fkeIdHabitacion, numeroReserva, fkeIdCliente, precioReserva, fechaInicioReserva, fechaFinReserva) VALUES (NULL, 1, 1001, 12345678, 150.00, '2025-08-11', '2025-08-15'); 
+
+ROLLBACK;
+COMMIT;
+
+
+START TRANSACTION;
+
+-- 1. Insertar cliente
+INSERT INTO cliente (identificacion, nombreCliente, segundosNombresClientes, apellidoCliente,  segundosApellidosCliente) VALUES (6001, 'Maria', 'Fernanda', 'Gonzalez', 'Lopez');
+
+SAVEPOINT clienteRegistro;
+
+-- 2. Insertar como particular
+INSERT INTO particular (idParticular, fkeIdCliente, metodoParticular) VALUES (NULL, 6001, 'Tarjeta Credito');
+
+-- 3. Agregar dirección
+INSERT INTO detalleDireccionCliente (idDDCliente, fkeIdCliente, paisDDCliente, estadoDDCliente, municipioDDCliente, ciudadDDCliente, sectorDDCliente, numeroDDCliente) VALUES (NULL, 6001, 'Colombia', 'Norte De Santander', 'Cucuta', 'Capital', 'Centro', 'Calle 10 #5-20');
+
+ROLLBACK TO SAVEPOINT clienteRegistro;
+
+-- 4. Hacer reserva
+INSERT INTO reserva (idReserva, fkeIdHabitacion, numeroReserva, fkeIdCliente, precioReserva, fechaInicioReserva, fechaFinReserva) VALUES (NULL, 101, 1002, 6001, 180.00, '2025-08-15', '2025-08-20');
+
+COMMIT;
 
